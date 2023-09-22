@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boat Location Tracking App</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="https://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=8.0"></script>
+</head>
+<body ng-app="boatLocationTracker">
+  <h1>Boat Location Tracking App</h1>
+
+  <div ng-controller="BoatLocationController">
+    <input type="text" ng-model="licenseNumber" placeholder="Enter boat license number">
+    <input type="text" ng-model="gpsLocation" placeholder="Enter GPS location (latitude,longitude)">
+    <button ng-click="addBoatLocation()">Add Boat Location</button>
+
+    <div id="map" style="width: 100%; height: 400px;"></div>
+  </div>
+
+  <script>
+    angular.module('boatLocationTracker', ['ngMap'])
+      .controller('BoatLocationController', function($scope, $http) {
+        $scope.licenseNumber = '';
+        $scope.gpsLocation = '';
+        $scope.map = null;
+
+        $scope.initMap = function() {
+          $scope.map = new Microsoft.Maps.Map(document.getElementById('map'), {
+            credentials: 'YOUR_BING_MAPS_API_KEY'
+          });
+        };
+
+        $scope.addBoatLocation = function() {
+          // Validate the license number and GPS location
+
+          // Save the boat location to the database
+
+          // Update the map to show the new boat location
+
+          $scope.licenseNumber = '';
+          $scope.gpsLocation = '';
+        };
+
+        $scope.updateMap = function() {
+          // Get the boat location from the database
+
+          // Create a new pushpin at the specified GPS location
+          var pushpin = new Microsoft.Maps.Pushpin($scope.gpsLocation);
+
+          // Add the pushpin to the map
+          $scope.map.entities.push(pushpin);
+        };
+
+        $scope.clearMap = function() {
+          $scope.map.entities.clear();
+        };
+
+        $scope.initMap();
+      });
+  </script>
+</body>
+</html>
